@@ -1,0 +1,643 @@
+
+DATABASE RELATIONSHIP
+
+UNIQUE KEY
+
+
+CREATE TABLE clients (
+    client_id INT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    company_name VARCHAR(255),
+    email VARCHAR(255) UNIQUE
+);
+
+
+CREATE TABLE contacts (
+    ID INT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    phone VARCHAR(15),
+    UNIQUE(phone)
+);
+
+
+CREATE TABLE brands (
+   ID INT, 
+   brandName VARCHAR(30),
+   constraint uni_brandName UNIQUE(brandName)
+ );
+
+
+
+constraints – add unique key using alter
+
+
+ALTER TABLE table_name
+  ADD CONSTRAINT [ constraint_name ]
+    UNIQUE (column1, column2, . . . column_n)
+
+ALTER TABLE table_name
+  DROP INDEX constraint_name;
+
+ALTER TABLE user_address_mapping DROP  INDEX address_fk;
+
+ALTER TABLE login DROP FOREIGN KEY fk_userID;
+
+ALTER TABLE login ADD FOREIGN KEY(userID) REFERENCES users(ID);
+
+ALTER TABLE login ADD FOREIGN KEY(userID) REFERENCES users(ID);
+
+
+
+
+
+create table user(id int primary key auto_increment);
+Query OK, 0 rows affected (2.44 sec)
+
+
+
+create table  user_address_mapping(id int primary key auto_increment,user_fk int not null unique,address_fk int not null unique);
+Query OK, 0 rows affected (1.67 sec)
+
+mysql> table  user_address_mapping;
+Empty set (0.18 sec)
+
+
+desc user_address_mapping;
++------------+------+------+-----+---------+----------------+
+| Field      | Type | Null | Key | Default | Extra          |
++------------+------+------+-----+---------+----------------+
+| id         | int  | NO   | PRI | NULL    | auto_increment |
+| user_fk    | int  | NO   | UNI | NULL    |                |
+| address_fk | int  | NO   | UNI | NULL    |                |
++------------+------+------+-----+---------+----------------+
+3 rows in set (0.20 sec)
+
+
+ALTER TABLE user_address_mapping DROP  INDEX address_fk;
+Query OK, 0 rows affected (0.37 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc user_address_mapping;
++------------+------+------+-----+---------+----------------+
+| Field      | Type | Null | Key | Default | Extra          |
++------------+------+------+-----+---------+----------------+
+| id         | int  | NO   | PRI | NULL    | auto_increment |
+| address_fk | int  | NO   |     | NULL    |                |
++------------+------+------+-----+---------+----------------+
+2 rows in set (0.10 sec)
+
+
+
+ALTER TABLE user_address_mapping ADD USER_FK INT UNIQUE NOT NULL;
+Query OK, 0 rows affected (2.76 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user_address_mapping;
++------------+------+------+-----+---------+----------------+
+| Field      | Type | Null | Key | Default | Extra          |
++------------+------+------+-----+---------+----------------+
+| id         | int  | NO   | PRI | NULL    | auto_increment |
+| address_fk | int  | NO   |     | NULL    |                |
+| USER_FK    | int  | NO   | UNI | NULL    |                |
++------------+------+------+-----+---------+----------------+
+3 rows in set (0.07 sec)
+
+
+desc user
+    -> ;
++-------+------+------+-----+---------+----------------+
+| Field | Type | Null | Key | Default | Extra          |
++-------+------+------+-----+---------+----------------+
+| id    | int  | NO   | PRI | NULL    | auto_increment |
++-------+------+------+-----+---------+----------------+
+1 row in set (0.21 sec)
+
+desc user_address_mapping;
++------------+------+------+-----+---------+----------------+
+| Field      | Type | Null | Key | Default | Extra          |
++------------+------+------+-----+---------+----------------+
+| id         | int  | NO   | PRI | NULL    | auto_increment |
+| address_fk | int  | NO   |     | NULL    |                |
+| USER_FK    | int  | NO   | UNI | NULL    |                |
++------------+------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+
+
+alter table user_address_mapping add FOREIGN KEY(USER_FK) REFERENCES  user(ID);
+Query OK, 0 rows affected (5.41 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into user values(1);
+Query OK, 1 row affected (0.25 sec)
+
+mysql> insert into user_address_mapping values(1,1,1);
+Query OK, 1 row affected (0.17 sec)
+
+mysql> select * from user inner join   user_address_mapping;
++----+----+------------+---------+
+| id | id | address_fk | USER_FK |
++----+----+------------+---------+
+|  1 |  1 |          1 |       1 |
++----+----+------------+---------+
+1 row in set (0.00 sec)
+
+select * from user inner join   user_address_mapping where user.id=user_address_mapping.user_fk;
++----+----+------------+---------+
+| id | id | address_fk | USER_FK |
++----+----+------------+---------+
+|  1 |  1 |          1 |       1 |
+|  2 |  2 |          3 |       2 |
+|  3 |  3 |          3 |       3 |
++----+----+------------+---------+
+
+
+alter table user add name varchar(20);
+Query OK, 0 rows affected (1.21 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into  user values(4,"akshay");
+Query OK, 1 row affected (0.15 sec)
+
+
+select * from user inner join   user_address_mapping where user.id=user_address_mapping.user_fk;
++----+--------+----+------------+---------+
+| id | name   | id | address_fk | USER_FK |
++----+--------+----+------------+---------+
+|  1 | NULL   |  1 |          1 |       1 |
+|  2 | NULL   |  2 |          3 |       2 |
+|  3 | NULL   |  3 |          3 |       3 |
+|  4 | akshay |  4 |          3 |       4 |
++----+--------+----+------------+---------+
+4 rows in set (0.00 sec)
+
+create table city(id int primary key auto_increment,name varchar(20));
+Query OK, 0 rows affected (1.31 sec)
+
+mysql> create table state(id int primary key auto_increment,name varchar(20));
+Query OK, 0 rows affected (1.53 sec)
+
+mysql> create table country(id int primary key auto_increment,name varchar(20));
+Query OK, 0 rows affected (0.49 sec)
+
+
+mysql> create table Address(id int primary key auto_increment,city_fk int unique,state_fk int  unique,country_fk int  unique,FOREIGN KEY(city_fk) REFERENCES city(id),FOREIGN KEY(country_fk) REFERENCES country(id));
+Query OK, 0 rows affected (0.80 sec)
+
+
+
+
+
+
+mysql> desc user;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(20) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.05 sec)
+
+mysql> desc user_address_mapping;
++------------+------+------+-----+---------+----------------+
+| Field      | Type | Null | Key | Default | Extra          |
++------------+------+------+-----+---------+----------------+
+| id         | int  | NO   | PRI | NULL    | auto_increment |
+| address_fk | int  | NO   |     | NULL    |                |
+| USER_FK    | int  | NO   | UNI | NULL    |                |
++------------+------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> desc city;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(20) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> desc state;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(20) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> desc country;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(20) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+
+mysql> desc address;
++------------+------+------+-----+---------+----------------+
+| Field      | Type | Null | Key | Default | Extra          |
++------------+------+------+-----+---------+----------------+
+| id         | int  | NO   | PRI | NULL    | auto_increment |
+| city_fk    | int  | YES  | UNI | NULL    |                |
+| state_fk   | int  | YES  | UNI | NULL    |                |
+| country_fk | int  | YES  | UNI | NULL    |                |
++------------+------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into city values(1,"pune");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into city values(2,"satara");
+Query OK, 1 row affected (0.26 sec)
+
+mysql> insert into city values(3,"delhi");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into state values(1,"maharashtra");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into state values(2,"delhi");
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into state values(3,"up");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into county values(1,"india");
+ERROR 1146 (42S02): Table 'addr.county' doesn't exist
+mysql> insert into county values(1,"india");
+ERROR 1146 (42S02): Table 'addr.county' doesn't exist
+mysql> insert into COUNTRY values(1,"india");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into COUNTRY values(2,"USA");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into COUNTRY values(3,"UK");
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into state ADDRESS(1,1,2,3);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADDRESS(1,1,2,3)' at line 1
+mysql> insert into  ADDRESS VALUES(1,1,2,3);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into  ADDRESS VALUES(2,2,2,1);
+ERROR 1062 (23000): Duplicate entry '2' for key 'address.state_fk'
+mysql> insert into  ADDRESS VALUES(2,1,1,1);
+ERROR 1062 (23000): Duplicate entry '1' for key 'address.city_fk'
+mysql> insert into  ADDRESS VALUES(2,2,3,1);
+Query OK, 1 row affected (0.31 sec)
+
+
+mysql> TABLE ADDRESS;
++----+---------+----------+------------+
+| id | city_fk | state_fk | country_fk |
++----+---------+----------+------------+
+|  1 |       1 |        2 |          3 |
+|  2 |       2 |        3 |          1 |
+|  3 |       3 |        1 |          2 |
++----+---------+----------+------------+
+3 rows in set (0.00 sec)
+
+
+
+
+mysql> SELECT * FROM USER,ADDRESS,USER_ADDRESS_MAPPING,CITY,STATE,COUNTRY;
++----+--------+----+---------+----------+------------+----+------------+---------+----+--------+----+-------------+----+-------+
+| id | name   | id | city_fk | state_fk | country_fk | id | address_fk | USER_FK | id | name   | id | name        | id | name  |
++----+--------+----+---------+----------+------------+----+------------+---------+----+--------+----+-------------+----+-------+
+|  7 | S0H    |  3 |       3 |        1 |          2 |  1 |          1 |       1 |  1 | pune   |  3 | up          |  1 | india |
+|  7 | S0H    |  2 |       2 |        3 |          1 |  1 |          1 |       1 |  1 | pune   |  3 | up          |  1 | india |
+|  7 | S0H    |  1 |       1 |        2 |          3 |  1 |          1 |       1 |  1 | pune   |  3 | up          |  1 | india |
+|  7 | S0H    |  3 |       3 |        1 |          2 |  1 |          1 |       1 |  2 | satara |  3 | up          |  1 | india |
+|  7 | S0H    |  2 |       2 |        3 |          1 |  1 |          1 |       1 |  2 | satara |  3 | up          |  1 | india |
+
+
+mysql> alter table state add constraint fk_state_ID FOREIGN KEY(id) REFERENCES address(id);
+Query OK, 3 rows affected (1.95 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> alter table city add constraint fk_city_ID FOREIGN KEY(id) REFERENCES address(id);
+Query OK, 3 rows affected (2.66 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> alter table country add constraint fk_country_ID FOREIGN KEY(id) REFERENCES address(id);
+Query OK, 3 rows affected (3.41 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+
+
+
+
+mysql> create table user(id int primary key ,s_id int);
+ERROR 1046 (3D000): No database selected
+mysql> use practice;
+Database changed
+mysql> create table user(id int primary key ,s_id int);
+Query OK, 0 rows affected (0.54 sec)
+
+mysql> create table state(s int primary key ,s_id int);
+Query OK, 0 rows affected (1.03 sec)
+
+mysql> drop table state;
+Query OK, 0 rows affected (1.00 sec)
+
+mysql> create table state(s_id int ,name varchar(20),constraint fk_ID FOREIGN KEY(s_id) REFERENCES user(id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table state(s_id int ,name varchar(20),constraint fk_ID FOREIGN KEY(s_id) REFERENCES user(id));
+Query OK, 0 rows affected (2.25 sec)
+
+mysql> insert state values(1,"mp");
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`practice`.`state`, CONSTRAINT `fk_ID` FOREIGN KEY (`s_id`) REFERENCES `user` (`id`))
+mysql> insert user values(1,1);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert user values(2,1);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert user values(3,1);
+Query OK, 1 row affected (0.26 sec)
+
+mysql> insert state values(1,"mp");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert state values(2,"mp");
+Query OK, 1 row affected (0.30 sec)
+
+mysql> insert state values(3,"up");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert state values(4,"up");
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`practice`.`state`, CONSTRAINT `fk_ID` FOREIGN KEY (`s_id`) REFERENCES `user` (`id`))
+mysql> select * from state,user;
++------+------+----+------+
+| s_id | name | id | s_id |
++------+------+----+------+
+|    3 | up   |  1 |    1 |
+|    2 | mp   |  1 |    1 |
+|    1 | mp   |  1 |    1 |
+|    3 | up   |  2 |    1 |
+|    2 | mp   |  2 |    1 |
+|    1 | mp   |  2 |    1 |
+|    3 | up   |  3 |    1 |
+|    2 | mp   |  3 |    1 |
+|    1 | mp   |  3 |    1 |
++------+------+----+------+
+9 rows in set (0.00 sec)
+
+mysql> select * from state join user using(s_id) ;
++------+------+----+
+| s_id | name | id |
++------+------+----+
+|    1 | mp   |  1 |
+|    1 | mp   |  2 |
+|    1 | mp   |  3 |
++------+------+----+
+3 rows in set (0.00 sec)
+
+mysql> select * from state inner user using(s_id) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'user using(s_id)' at line 1
+mysql> select * from state inner user having(s_id) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'user having(s_id)' at line 1
+mysql> select * from state inner join user having(s_id) ;
+ERROR 1052 (23000): Column 's_id' in having clause is ambiguous
+mysql> select * from state inner join user where s_id=s_id ;
+ERROR 1052 (23000): Column 's_id' in where clause is ambiguous
+mysql> select * from state inner join user where state.s_id=user.s_id ;
++------+------+----+------+
+| s_id | name | id | s_id |
++------+------+----+------+
+|    1 | mp   |  1 |    1 |
+|    1 | mp   |  2 |    1 |
+|    1 | mp   |  3 |    1 |
++------+------+----+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from user inner join state where state.s_id=user.s_id ;
++----+------+------+------+
+| id | s_id | s_id | name |
++----+------+------+------+
+|  1 |    1 |    1 | mp   |
+|  2 |    1 |    1 | mp   |
+|  3 |    1 |    1 | mp   |
++----+------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> insert user values(4,2);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from user inner join state where state.s_id=user.s_id ;
++----+------+------+------+
+| id | s_id | s_id | name |
++----+------+------+------+
+|  1 |    1 |    1 | mp   |
+|  2 |    1 |    1 | mp   |
+|  3 |    1 |    1 | mp   |
+|  4 |    2 |    2 | mp   |
++----+------+------+------+
+4 rows in set (0.11 sec)
+
+mysql> insert user values(5,3);
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from user inner join state where state.s_id=user.s_id ;
++----+------+------+------+
+| id | s_id | s_id | name |
++----+------+------+------+
+|  1 |    1 |    1 | mp   |
+|  2 |    1 |    1 | mp   |
+|  3 |    1 |    1 | mp   |
+|  4 |    2 |    2 | mp   |
+|  5 |    3 |    3 | up   |
++----+------+------+------+
+5 rows in set (0.00 sec)
+
+mysql>
+
+
+
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.27 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| a                  |
+| a1                 |
+| account            |
+| addr               |
+| b                  |
+| book_shop          |
+| bookbook           |
+| image              |
+| information_schema |
+| mini_project_db    |
+| mysql              |
+| performance_schema |
+| practice           |
+| projectdb          |
+| sys                |
++--------------------+
+15 rows in set (0.46 sec)
+
+mysql> use addr;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_addr       |
++----------------------+
+| address              |
+| city                 |
+| country              |
+| state                |
+| user                 |
+| user_address_mapping |
++----------------------+
+6 rows in set (0.18 sec)
+
+mysql> create table role(role_id int primary key auto_increment,role varechar(255))
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varechar(255))' at line 1
+mysql> create table role(role_id int primary key auto_increment,role varchar(255));
+Query OK, 0 rows affected (2.73 sec)
+
+mysql> desc role;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| role_id | int          | NO   | PRI | NULL    | auto_increment |
+| role    | varchar(255) | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+2 rows in set (0.13 sec)
+
+mysql> create table user(uid_id int primary key auto_increment,name varchar(255),role_id int ,FOREIGN KEY(role_id) REFERENCES role(role_id));;
+ERROR 1050 (42S01): Table 'user' already exists
+ERROR:
+No query specified
+
+mysql> create table user2(uid_id int primary key auto_increment,name varchar(255),role_id int ,FOREIGN KEY(role_id) REFERENCES role(role_id));;
+Query OK, 0 rows affected (1.08 sec)
+
+ERROR:
+No query specified
+
+mysql> desc user2;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| uid_id  | int          | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(255) | YES  |     | NULL    |                |
+| role_id | int          | YES  | MUL | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+3 rows in set (0.15 sec)
+
+mysql> desc role;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| role_id | int          | NO   | PRI | NULL    | auto_increment |
+| role    | varchar(255) | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into  role values(1,"driver");
+Query OK, 1 row affected (0.38 sec)
+
+mysql> insert into  user2  values(1,"name",1);
+Query OK, 1 row affected (0.20 sec)
+
+mysql> table user2;
++--------+------+---------+
+| uid_id | name | role_id |
++--------+------+---------+
+|      1 | name |       1 |
++--------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into  user2  values(2,"ak",1);
+Query OK, 1 row affected (0.27 sec)
+
+mysql> insert into  user2  values(2,"ak",2);
+ERROR 1062 (23000): Duplicate entry '2' for key 'user2.PRIMARY'
+mysql> insert into  role values(2,"doner");
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into  role values(3,"manager");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into  role values(default,"manager");
+Query OK, 1 row affected (0.19 sec)
+
+mysql> insert into  role values(default,"ak");
+Query OK, 1 row affected (0.15 sec)
+
+mysql> table role;
++---------+---------+
+| role_id | role    |
++---------+---------+
+|       1 | driver  |
+|       2 | doner   |
+|       3 | manager |
+|       4 | manager |
+|       5 | ak      |
++---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> insert into  user2  values(3,"ajit",3);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> table user;
++----+--------+
+| id | name   |
++----+--------+
+|  1 | NULL   |
+|  2 | NULL   |
+|  3 | NULL   |
+|  4 | akshay |
+|  5 | AK     |
+|  6 | SH     |
+|  7 | S0H    |
+|  8 | ooo    |
+|  9 | kooo   |
+| 10 | ko     |
++----+--------+
+10 rows in set (0.03 sec)
+
+mysql> table user2;
++--------+------+---------+
+| uid_id | name | role_id |
++--------+------+---------+
+|      1 | name |       1 |
+|      2 | ak   |       1 |
+|      3 | ajit |       3 |
++--------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from user2 inner join role where user2.role_id=role.role_id;
++--------+------+---------+---------+---------+
+| uid_id | name | role_id | role_id | role    |
++--------+------+---------+---------+---------+
+|      1 | name |       1 |       1 | driver  |
+|      2 | ak   |       1 |       1 | driver  |
+|      3 | ajit |       3 |       3 | manager |
++--------+------+---------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> s
+
