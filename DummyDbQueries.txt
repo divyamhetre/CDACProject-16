@@ -1,0 +1,162 @@
+
+ create database saharadonationwebsite;
+
+
+
+/* NOT Use
+create table Doner_info_tbl(Doner_ID int primary key auto_increment,Doner_FirstName varchar(200),Doner_LastName varchar(200),Doner_UserName varchar(200),Doner_Password varchar(200),Doner_Email varchar(200),Doner_ContactNo int,Doner_Area varchar(200),Doner_Address varchar(200), Doner_Pincode int(6));
+insert into doner_info_tbl values(1,"Akshay","Shende","@Ak123","@Ak123","@gmail.com",9860038803,"Zone","Mumbai","444555");
+*/
+
+
+-==-=-=--==-/contact int not able to insert so use varchar/-=-=-=-=-=-==-=-=-=-===-=-=-=-=-=-=-=-=-=-===-=-=-=-=-=-==-=--=-=-===-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=--=-=-=-=-=-=-=-=-==-==-=-=-=-=-=-=-==-=--=-=-=-=-=---=-=-=-=-==-=-=-=-=-=-=-=-=-=-=---=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+create table Doner_info_tbl(Doner_ID int primary key auto_increment,Doner_FirstName varchar(200),Doner_LastName varchar(200),Doner_UserName varchar(200),Doner_Password varchar(200),Doner_Email varchar(200),Doner_ContactNo varchar(15),Doner_Area varchar(200),Doner_Address varchar(200), Doner_Pincode int(6));
+
+insert into Doner_info_tbl values(1,"Akshay","Shende","@Ak123","@Ak123","@gmail.com","9860038803","Zone","Mumbai","444555");
+
+mysql> desc Doner_info_tbl;
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| Doner_ID        | int          | NO   | PRI | NULL    | auto_increment |
+| Doner_FirstName | varchar(200) | YES  |     | NULL    |                |
+| Doner_LastName  | varchar(200) | YES  |     | NULL    |                |
+| Doner_UserName  | varchar(200) | YES  |     | NULL    |                |
+| Doner_Password  | varchar(200) | YES  |     | NULL    |                |
+| Doner_Email     | varchar(200) | YES  |     | NULL    |                |
+| Doner_ContactNo | varchar(15)  | YES  |     | NULL    |                |
+| Doner_Area      | varchar(200) | YES  |     | NULL    |                |
+| Doner_Address   | varchar(200) | YES  |     | NULL    |                |
+| Doner_Pincode   | int          | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+10 rows in set (0.00 sec)
+
+
+
+create table Worker_info_tbl(Worker_ID int primary key auto_increment,Worker_FirstName varchar(200),Worker_LastName varchar(200),Worker_UserName varchar(200),Worker_Password varchar(200),Worker_Email varchar(200),Worker_ContactNo int(11),Worker_WorkArea varchar(200),Worker_Address varchar(200), Worker_WorkPincode int(6),Worker_Age int,Worker_AddharNo int);
+
+mysql> desc Worker_info_tbl;
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| Worker_ID          | int          | NO   | PRI | NULL    | auto_increment |
+| Worker_FirstName   | varchar(200) | YES  |     | NULL    |                |
+| Worker_LastName    | varchar(200) | YES  |     | NULL    |                |
+| Worker_UserName    | varchar(200) | YES  |     | NULL    |                |
+| Worker_Password    | varchar(200) | YES  |     | NULL    |                |
+| Worker_Email       | varchar(200) | YES  |     | NULL    |                |
+| Worker_ContactNo   | int          | YES  |     | NULL    |                |
+| Worker_WorkArea    | varchar(200) | YES  |     | NULL    |                |
+| Worker_Address     | varchar(200) | YES  |     | NULL    |                |
+| Worker_WorkPincode | int          | YES  |     | NULL    |                |
+| Worker_Age         | int          | YES  |     | NULL    |                |
+| Worker_AddharNo    | int          | YES  |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+12 rows in set (0.09 sec)
+
+
+//create table Organization_info_tbl(Organization_ID int primary key auto_increment,Organization_Name varchar(200),Organization_UserName varchar(200),Organization_Password varchar(200),Organization_Email varchar(200),Organization_ContactNo int(11),Organization_Area varchar(200),Organization_Address varchar(200), Organization_WorkPincode int(6),Organization_Certificate_Image longblob not null);
+
+ isAvailable boolean default true
+
+
+
+
+create table Organization_info_tbl(Organization_ID int primary key auto_increment,Organization_Name varchar(200),Organization_UserName varchar(200),Organization_Password varchar(200),Organization_Email varchar(200),Organization_ContactNo varchar(15),Organization_Area varchar(200),Organization_Address varchar(200), Organization_Pincode int(6),Organization_Certificate_Image longblob,isAvailable boolean default false
+);
+
+ desc Organization_info_tbl;
++--------------------------------+--------------+------+-----+---------+----------------+
+| Field                          | Type         | Null | Key | Default | Extra          |
++--------------------------------+--------------+------+-----+---------+----------------+
+| Organization_ID                | int          | NO   | PRI | NULL    | auto_increment |
+| Organization_Name              | varchar(200) | YES  |     | NULL    |                |
+| Organization_UserName          | varchar(200) | YES  |     | NULL    |                |
+| Organization_Password          | varchar(200) | YES  |     | NULL    |                |
+| Organization_Email             | varchar(200) | YES  |     | NULL    |                |
+| Organization_ContactNo         | varchar(15)  | YES  |     | NULL    |                |
+| Organization_Area              | varchar(200) | YES  |     | NULL    |                |
+| Organization_Address           | varchar(200) | YES  |     | NULL    |                |
+| Organization_Pincode           | int          | YES  |     | NULL    |                |
+| Organization_Certificate_Image | longblob     | YES  |     | NULL    |                |
+| isAvailable                    | tinyint(1)   | YES  |     | 0       |                |
++--------------------------------+--------------+------+-----+---------+----------------+
+11 rows in set (0.08 sec)
+
+
+mysql> create table Donation_tbl(Donation_ID int primary key auto_increment,Doner_ID int,Donation_Quantity int,Donation_Pickup_Address varchar(200),Donation_Pincode int, Donation_Date Date, Donation_PickupTime time, Donation_Comments varchar(200), Donation_Status varchar(200), constraint fk_id foreign key(Doner_ID) references Doner_info_tbl (Doner_ID));
+Query OK, 0 rows affected (2.15 sec)
+
+mysql> desc Donation_tbl;
++-------------------------+--------------+------+-----+---------+----------------+
+| Field                   | Type         | Null | Key | Default | Extra          |
++-------------------------+--------------+------+-----+---------+----------------+
+| Donation_ID             | int          | NO   | PRI | NULL    | auto_increment |
+| Doner_ID                | int          | YES  | MUL | NULL    |                |
+| Donation_Quantity       | int          | YES  |     | NULL    |                |
+| Donation_Pickup_Address | varchar(200) | YES  |     | NULL    |                |
+| Donation_Pincode        | int          | YES  |     | NULL    |                |
+| Donation_Date           | date         | YES  |     | NULL    |                |
+| Donation_PickupTime     | time         | YES  |     | NULL    |                |
+| Donation_Comments       | varchar(200) | YES  |     | NULL    |                |
+| Donation_Status         | varchar(200) | YES  |     | NULL    |                |
++-------------------------+--------------+------+-----+---------+----------------+
+9 rows in set (0.08 sec)
+
+
+
+create table Organization_Request_tbl(Organization_Request_ID  int primary key auto_increment,Organization_ID int,Organization_Request_Quantity int,Organization_Requested_For_Date date,Organization_Qty_Delivered_OnDate date,Organization_Request_Status varchar(200), constraint fk_id2 foreign key(Organization_ID) references Organization_info_tbl (Organization_ID));
+
+mysql> desc Organization_Request_tbl;
++-----------------------------------+--------------+------+-----+---------+----------------+
+| Field                             | Type         | Null | Key | Default | Extra          |
++-----------------------------------+--------------+------+-----+---------+----------------+
+| Organization_Request_ID           | int          | NO   | PRI | NULL    | auto_increment |
+| Organization_ID                   | int          | YES  | MUL | NULL    |                |
+| Organization_Request_Quantity     | int          | YES  |     | NULL    |                |
+| Organization_Requested_For_Date   | date         | YES  |     | NULL    |                |
+| Organization_Qty_Delivered_OnDate | date         | YES  |     | NULL    |                |
+| Organization_Request_Status       | varchar(200) | YES  |     | NULL    |                |
++-----------------------------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.11 sec)
+
+
+
+
+create table Worker_task_tbl(Task_Id int primary key auto_increment,Task_Worker_Id int unique, Task_Type varchar(50),Task_Work_Id int ,Task_Status varchar(50),Task_Date date,Task_Completion_Img longblob,foreign key(Task_Worker_Id) references  Worker_info_tbl (Worker_ID));
+
+mysql> desc Worker_task_tbl;
++---------------------+-------------+------+-----+---------+----------------+
+| Field               | Type        | Null | Key | Default | Extra          |
++---------------------+-------------+------+-----+---------+----------------+
+| Task_Id             | int         | NO   | PRI | NULL    | auto_increment |
+| Task_Worker_Id      | int         | YES  | UNI | NULL    |                |
+| Task_Type           | varchar(50) | YES  |     | NULL    |                |
+| Task_Work_Id        | int         | YES  |     | NULL    |                |
+| Task_Status         | varchar(50) | YES  |     | NULL    |                |
+| Task_Date           | date        | YES  |     | NULL    |                |
+| Task_Completion_Img | longblob    | YES  |     | NULL    |                |
++---------------------+-------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+create table state(s_id int ,name varchar(20),constraint fk_ID FOREIGN KEY(s_id) REFERENCES user(id));
+
+SELECT TIME("19:30:10");
+SELECT TIME("2017-08-15 19:30:10");
+SELECT TIME("2017-08-15 19:30:10.000001");
+SELECT TIME(NULL);
