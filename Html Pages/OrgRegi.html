@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script>
+         
+           
+            
+
+        </script>
+        <meta charset="utf-8">
+        <title>SAHARA - Food Donation</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Food Donation" name="keywords">
+        <meta content="Food Donation" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+       
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <a href="index.html" class="navbar-brand">SAHARA</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="about.html" class="nav-item nav-link">AboutUs</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Sign-In</a>
+                            <div class="dropdown-menu">
+                                <a href="DonerSignIn.html" class="dropdown-item">Doner</a>
+                                <a href="OrganizationSignIn.html" class="dropdown-item">Organization</a>
+                                <a href="ManagerSignIn.html" class="dropdown-item">Manager</a>
+                                <a href="VolunteerSignIn.html" class="dropdown-item">Volunteer</a>
+                               
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Sign-Up</a>
+                            <div class="dropdown-menu">
+                                <a href="single.html" class="dropdown-item">Doner</a>
+                                <a href="service.html" class="dropdown-item">Organization</a>
+                                <a href="team.html" class="dropdown-item">Manager</a>
+                                <a href="volunteerSignUp.html" class="dropdown-item">Volunteer</a>
+                            </div>
+                        </div>
+                      
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+          <!-- Contact Start -->
+          <div class="contact">
+            <div class="container"><br>
+                <!-- <div class="section-header text-center">
+                   
+                    <h2>Sign-Up</h2>
+                </div> -->
+                <!-- <div class="contact-img">
+                    <img src="img/contact.jpg" alt="Image">
+                </div> -->
+                <div class="contact-form">
+                        <div id="success"></div>
+                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <h3 style="color: rgb(207, 164, 76);padding-bottom:8px;">Organisation_Registration</h3> 
+                        
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="orgid" tabindex="0" placeholder="Organisation_id" autofocus="1" required="required" />
+                            <p class="help-block text-danger"></p>
+                        </div>  
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="name" tabindex="0" placeholder="Name" autofocus="1" required="required"  />
+                            <p class="help-block text-danger"></p>
+                        
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="org_username" tabindex="0" placeholder="Username" autofocus="1" required="required"/>
+                            <p class="help-block text-danger"></p>
+                        </div> 
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="org_password" tabindex="0" placeholder="Password" autofocus="1" required="required"  />
+                            <p class="help-block text-danger"></p>
+                        </div> 
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="org_email" tabindex="0" placeholder="Email" autofocus="1" required="required" />
+                            <p class="help-block text-danger"></p>
+                        </div>  
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="org_contactno" tabindex="0" placeholder="Contact_no" autofocus="1" required="required"  />
+                            <p class="help-block text-danger"></p>
+                        </div>  
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="org_area" tabindex="0" placeholder="Area" autofocus="1" required="required" />
+                            <p class="help-block text-danger"></p>
+                        </div>  
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="org_address" tabindex="0" placeholder="Address" autofocus="1" required="required"  />
+                            <p class="help-block text-danger"></p>
+                        </div>  
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="org_pincode" tabindex="0" placeholder="Pincode" autofocus="1" required="required"  />
+                            <p class="help-block text-danger"></p>
+                        </div> 
+                        <div class="control-group">
+                            <input type="image" class="form-control" id="org_image" tabindex="0" placeholder="Certificate" autofocus="1" required="required"  />
+                            <p class="help-block text-danger"></p>
+                        </div>  
+                           
+                    </div> 
+                    <div>
+                            <button class="btn btn-custom" type="submit" id="sendMessageButton">Submit</button>
+                        </div>
+                         
+                        </form>
+                        <br>
+                        <div class="control-group" >
+                            <a href=" " target= " ">Forgotten Password?</a>
+                        </div>
+                        
+                        <div class="control-group" >
+                            <a href="C:\Users\Lenovo\Downloads\SAHARA\Volunteer_SignUp.html">Sign-Up</a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <!-- Contact End -->
+        
+        
+       
+
+        
+        
+        <!-- Back to top button -->
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        
+        <!-- Pre Loader -->
+        <div id="loader" class="show">
+            <div class="loader"></div>
+        </div>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/parallax/parallax.min.js"></script>
+        
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
+</html>
+

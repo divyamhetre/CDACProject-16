@@ -1,0 +1,60 @@
+<html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(()=>{
+
+        
+            $("#b1").click(()=>{
+              //  alert("hiii")
+                var donation_id=$("#donationid").val()
+                var doner_id=$("#donerid").val()
+                var quantity=$("#donationQuantity").val()
+                var address=$("#address").val()
+                var pincode=$("#pincode").val()
+                var date=$("#date").val()
+                var contact_no=$("#contactno").val()
+                var time=$("#time").val()
+                var comment=$("#comments").val()
+                var status=$("#status").val()
+
+                   var  url1=`http://localhost:9090/Doner/Donation/${donation_id}/${doner_id}/${quantity}/${address}
+                   +${pincode}/${date}/${contact_no}/${time}/${comment}/${status}`
+
+              $.ajax(
+                  {
+                      url:url1,
+                      type:'POST',
+                     success:function(){
+                       window.location="www.google.com";
+                     }
+                
+                  }
+              )//end of ajax
+
+            })
+        })
+        
+    </script>
+    <body>
+     
+      
+        <div  >
+        
+        <p>Donation id:         <input type=text id='donationid'  /></p>
+        <p>Doner id:           <input type=text id='donerid' /></p>
+        <p>Donation quantity: <input type=text id='donationQuantity' /></p>
+        <p>Pickup address       <input type=text id='address' /></p>
+        <p>Pincode:            <input type=text id='pincode' /></p>
+        <p>Date:               <input type="date" id='date' /></p>
+        <p>contact no:        <input type=text id='contactno' /></p>
+        <p>Pickup time          <input type=text id='time' /></p>
+        <p>Comments:           <input type="text" id='comments' /></p>
+        <p>Status:             <input type=text id='status' /></p>
+       
+     <input type="submit" id="b1" value="Submit">
+       </div>
+         <div id="insert">
+       </div>
+       
+      </body>
+</html>
