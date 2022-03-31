@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        
+         console.log("abc1")
+          $(document).ready(()=>{
+				console.log("abc2") 
+                $('#sendMessageButton').click(()=>{
+            	   console.log("abc2") 
+                   var org_id = $('#orgid').val()
+                   var org_name = $('#name').val()
+                       
+                   var org_uname = $('#org_username').val()
+                   var org_pwd = $('#org_password').val()
+                       var org_email = $('#org_email').val()
+                       var org_contactno = $('#org_contactno').val()
+                  	   var org_area = $('#org_area').val()
+                       var org_address = $('#org_address').val()
+                       var org_pincode = $('#org_pincode').val()
+                       var org_image = $('#org_img').val()
+                       var org_isAvalable = $('#org_isavailable').val()
+                       
+                     console.log(org_address);
+                       
+                   
+                    
+                    var obj = {organizationId:org_id,isavailable:org_isAvalable,organizationAddress:org_address,organizationArea:org_area,
+                    organizationCertificateImage:null,organizationContactno:org_contactno, organizationEmail:org_email, organizationName:org_name,organizationPassword:org_pwd,
+                    organizationPincode:org_pincode,organizationUsername:org_uname}
+                    
+                    console.log("abc55");
+                    console.log(org_pincode)
+                    console.log(obj)
+             
+                      
+                })
+
+                    $.ajax(
+               {    url: '/manager/Sheduletable/getAll',
+                     type: 'GET',
+                     success: function(responseData) {
+                                   var arr  = responseData
+                           //  var arr2=arr[1].organizationInfoTbl1
+                          
+                           
+                          //arr1 for length
+                          //arr2 for data
+                           var arr1=arr.listOrganizationRequestTbl
+                         //  console.log(arr1.length);
+                     //      var arr3=arr.listOrganizationRequestTbl[0].organizationInfoTbl1.organizationId
+                           
+                                 var arr2=arr.listOrganizationRequestTbl[0].organizationRequestId
+                              console.log(arr2);
+                      //     console.log(arr3);
+                                 var tab2 = $(`<table class='table' border='1'></table>`)
+                                  tab2.append(`<thead class="thead-dark"><tr>
+                                          <th scope="col">sr.no</th>
+                                          <th scope="col">Request_Type</th>
+                                          <th scope="col">Request_Id</th>
+                                          <th scope="col">Date</th>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Area</th>
+                                          <th scope="col">Address</th>
+                                          <th scope="col">Pincode</th>
+                                          <th scope="col">Contact NO</th>
+                                          <th scope="col">Quantity</th>
+                                          <th scope="col">Add</th>
+                                          <thead class="thead-dark"></tr>`) 
+                                          
+                                  for(var i=0;i<arr1.length;i++){
+                                         tab2.append(`<tr>
+                                          <td>${i+1}</td>
+                                          <td>Delivery</td>
+                                          <td>${arr.listOrganizationRequestTbl[i].organizationRequestId}</td>
+                                          <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationName}</td>
+                                          <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationArea}</td>
+                                          <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationAddress}</td>
+                                          <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationPincode}</td>
+                                          <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationContactno}</td>
+                                          <td>${arr.listOrganizationRequestTbl[i].organizationRequestQuantity}</td>
+                                          <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationPincode}</td>
+                                          </tr>`) 
+                                  }
+                                 
+                                 for(var i=0;i<arr1.length;i++){
+                                     tab2.append(`<tr>
+                                      <td>${i+1}</td>
+                                      <td>Delivery</td>
+                                      <td>${arr.listOrganizationRequestTbl[i].organizationRequestId}</td>
+                                      <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationName}</td>
+                                      <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationArea}</td>
+                                      <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationAddress}</td>
+                                      <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationPincode}</td>
+                                      <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationContactno}</td>
+                                      <td>${arr.listOrganizationRequestTbl[i].organizationRequestQuantity}</td>
+                                      <td>${arr.listOrganizationRequestTbl[i].organizationInfoTbl1.organizationPincode}</td>
+                                      </tr>`) 
+                              }
+                             
+                                            
+                                 $('#d1').append(tab2)
+                                 
+                                 
+                                            
+                        }//end of success
+               }//end of ajax parameter
+             )//end of ajax call
+            
+             
+            
+           
+     
+            })                   
+                                       
+
+          
+
+        </script>
+        <meta charset="utf-8">
+        <title>SAHARA - Food Donation</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Food Donation" name="keywords">
+        <meta content="Food Donation" name="description">
+
+        <!-- Favicon -->
+        <!--<link href="img/favicon.ico" rel="icon">-->
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+       <form action="https://www.google.com/" id="target" >
+    
+       </form>
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <a href="index.html" class="navbar-brand">SAHARA</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="about.html" class="nav-item nav-link">AboutUs</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Sign-In</a>
+                            <div class="dropdown-menu">
+                                <a href="DonerSignIn.html" class="dropdown-item">Doner</a>
+                                <a href="OrganizationSignIn.html" class="dropdown-item">Organization</a>
+                                <a href="ManagerSignIn.html" class="dropdown-item">Manager</a>
+                                <a href="VolunteerSignIn.html" class="dropdown-item">Volunteer</a>
+                               
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Sign-Up</a>
+                            <div class="dropdown-menu">
+                                <a href="single.html" class="dropdown-item">Doner</a>
+                                <a href="service.html" class="dropdown-item">Organization</a>
+                                <a href="team.html" class="dropdown-item">Manager</a>
+                                <a href="volunteerSignUp.html" class="dropdown-item">Volunteer</a>
+                            </div>
+                        </div>
+                      
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+        <br>  </br>
+       <br>  </br>
+       <table>
+        <tbody>
+        <td><div id="d1"> </div></td>
+        </tbody> 
+      </table>
+      
+      
+    
+
+
+
+    </body>
+</html>
